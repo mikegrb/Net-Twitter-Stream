@@ -11,6 +11,7 @@ WriteMakefile(
     PREREQ_PM    => {
         'Test::Simple'    => 0.44,
         'JSON'            => 2.0,
+        'Net::OAuth'      => 0.25,
         'IO::Socket::SSL' => 0,
     },
 );

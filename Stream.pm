@@ -5,6 +5,7 @@ use IO::Socket;
 use MIME::Base64;
 use JSON;
 use IO::Socket::SSL;
+use Net::OAuth 0.25;
 
 our $VERSION = '0.28';
 1;
@@ -75,6 +76,22 @@ sub new {
   my $content = "follow=$args{follow}" if $args{follow};
   $content = "track=$args{track}" if $args{track};
   $content = "follow=$args{follow}&track=$args{track}\r\n" if $args{track} && $args{follow};
+
+my $request = request('protected resource')->new(
+    version          => '1.0',
+    consumer_key     => $self->{consumer_key},
+    consumer_secret  => $self->{consumer_secret},
+    request_method   => 'POST',
+    signature_method => 'HMAC-SHA1',
+    timestamp        => time,
+    nonce            => time ^ $$ ^ int( rand 2**32 ),
+    request_url      => '/1.1/statuses/filter.json',
+    token            => $self->access_token,
+    token_secret     => $self->access_token_secret,
+    extra_params => $is_multipart ? {} : $args,
+
+);
+
   
   my $auth = encode_base64 ( "$args{user}:$args{pass}" );
   chomp $auth;
