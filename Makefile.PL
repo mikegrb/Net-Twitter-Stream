@@ -9,7 +9,8 @@ WriteMakefile(
     AUTHOR       => 'Martin Redmond (@martinredmond)',
     ABSTRACT     => 'Connect to the Twitter streaming api',
     PREREQ_PM    => {
-                     'Test::Simple' => 0.44,
-		     'JSON' => 2.0,
-                    },
+        'Test::Simple'    => 0.44,
+        'JSON'            => 2.0,
+        'IO::Socket::SSL' => 0,
+    },
 );
