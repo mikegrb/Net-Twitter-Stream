@@ -81,7 +81,7 @@ sub new {
   
   my $cl = length $content;
   my $req = <<EOF;
-POST /1/statuses/filter.json HTTP/1.1\r
+POST /1.1/statuses/filter.json HTTP/1.1\r
 Authorization: Basic $auth\r
 Host: stream.twitter.com\r
 User-Agent: net-twitter-stream/0.1\r
